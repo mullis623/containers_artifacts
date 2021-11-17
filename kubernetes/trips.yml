@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: trips
+  namespace: api
 spec:
   replicas: 1
   selector:
@@ -40,9 +41,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: trips-service
+  name: trips
+  namespace: api
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - port: 80
     targetPort: 80

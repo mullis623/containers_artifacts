@@ -29,7 +29,7 @@ spec:
         - containerPort: 80
         env:
         - name: ASPNETCORE_ENVIRONMENT
-          value: "Development"
+          value: "Production"
         - name: USERPROFILE_API_ENDPOINT
           value: http://userprofile.api.svc.cluster.local:80
         - name: TRIPS_API_ENDPOINT
@@ -38,7 +38,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: tripviewer-service
+  name: tripviewer
+  namespace: web
 spec:
   type: LoadBalancer
   ports:

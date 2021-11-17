@@ -15,7 +15,7 @@ spec:
       nodeSelector:
         "kubernetes.io/os": linux
       containers:
-      - name: poi
+      - name: trips
         image: registryxyo7426.azurecr.io/tripinsights/trips:1.0
         resources:
           requests:
@@ -29,13 +29,33 @@ spec:
         env:
         - name: ASPNETCORE_ENVIRONMENT
           value: "Development"
+        - name: SQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mssql
+              key: SQL_USER
+        - name: SQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mssql
+              key: SQL_PASSWORD
+        - name: SQL_SERVER
+          valueFrom:
+            secretKeyRef:
+              name: mssql
+              key: SQL_SERVER
+        - name: SQL_DBNAME
+          valueFrom:
+            secretKeyRef:
+              name: mssql
+              key: SQL_DBNAME
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: trips-service
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   ports:
   - port: 80
   selector:

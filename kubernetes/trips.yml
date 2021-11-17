@@ -29,7 +29,8 @@ spec:
         env:
         - name: ASPNETCORE_ENVIRONMENT
           value: "Development"
-
+        - name: OPENAPI_DOCS_URI
+          value: ""
         envFrom:
           - secretRef:
             name: mssql

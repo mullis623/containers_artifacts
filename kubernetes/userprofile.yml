@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: user-java
+  name: userprofile
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: user-java
+      app: userprofile
   template:
     metadata:
       labels:
-        app: user-java
+        app: userprofile
     spec:
       nodeSelector:
         "kubernetes.io/os": linux
       containers:
-      - name: user-java
-        image: registryxyo7426.azurecr.io/tripinsights/user-java:1.0
+      - name: userprofile
+        image: registryxyo7426.azurecr.io/tripinsights/userprofile:1.0
         resources:
           requests:
             cpu: 100m
@@ -36,10 +36,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: user-java-service
+  name: userprofile-service
 spec:
   type: ClusterIP
   ports:
   - port: 80
   selector:
-    app: user-java
+    app: userprofile

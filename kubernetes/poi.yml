@@ -29,6 +29,9 @@ spec:
         env:
         - name: ASPNETCORE_ENVIRONMENT
           value: "Development"
+        envFrom:
+          - secretRef:
+            name: mssql
 ---
 apiVersion: v1
 kind: Service

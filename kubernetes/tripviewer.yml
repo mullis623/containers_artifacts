@@ -29,6 +29,10 @@ spec:
         env:
         - name: ASPNETCORE_ENVIRONMENT
           value: "Development"
+        - name: USERPROFILE_API_ENDPOINT
+          value: http://10.0.141.114:80
+        - name: TRIPS_API_ENDPOINT
+          value: http://23.99.84.16:80
 ---
 apiVersion: v1
 kind: Service

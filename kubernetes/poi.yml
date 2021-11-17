@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: poi
+  namespace: api
 spec:
   replicas: 1
   selector:
@@ -28,14 +29,18 @@ spec:
         - containerPort: 80
         env:
         - name: ASPNETCORE_ENVIRONMENT
-          value: "Development"
+          value: "Production"
+        envFrom:
+        - secretRef:
+            name: mssql
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: poi-service
+  name: poi
+  namespace: api
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   ports:
   - port: 80
   selector:

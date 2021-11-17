@@ -26,9 +26,9 @@ spec:
             memory: 256Mi
         ports:
         - containerPort: 80
-        env:
-        - name: ASPNETCORE_ENVIRONMENT
-          value: "Development"
+        envFrom:
+        - secretRef:
+            name: mssql
 ---
 apiVersion: v1
 kind: Service

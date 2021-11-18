@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: poi
+        aadpodidbinding: t1hack-pod-identity
     spec:
       nodeSelector:
         "kubernetes.io/os": linux
@@ -32,7 +33,18 @@ spec:
           value: "Production"
         envFrom:
         - secretRef:
-            name: mssql
+            name: mssqlkv
+        volumeMounts:
+        - name: secrets-store01-inline
+          mountPath: "/mnt/secrets-store"
+          readOnly: true
+      volumes:
+        - name: secrets-store01-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "azure-kv-podid"
 ---
 apiVersion: v1
 kind: Service

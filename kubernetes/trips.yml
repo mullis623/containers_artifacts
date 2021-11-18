@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: trips
+        aadpodidbinding: t1hack-pod-identity
     spec:
       nodeSelector:
         "kubernetes.io/os": linux
@@ -28,15 +29,22 @@ spec:
         ports:
         - containerPort: 80
         env:
-          - name: PORT
-            value: '80'
-          - name: OPENAPI_DOCS_URI
-            value: 'http://localhost'
-          - name: DEBUG_LOGGING
-            value: 'true'
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Production"
         envFrom:
         - secretRef:
-            name: mssql
+            name: mssqlkv
+        volumeMounts:
+        - name: secrets-store01-inline
+          mountPath: "/mnt/secrets-store"
+          readOnly: true
+      volumes:
+        - name: secrets-store01-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "azure-kv-podid"
 ---
 apiVersion: v1
 kind: Service

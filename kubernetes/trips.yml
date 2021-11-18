@@ -19,13 +19,6 @@ spec:
       containers:
       - name: trips
         image: registryxyo7426.azurecr.io/tripinsights/trips:1.0
-        resources:
-          requests:
-            cpu: 100m
-            memory: 128Mi
-          limits:
-            cpu: 250m
-            memory: 256Mi
         ports:
         - containerPort: 80
         env:
